@@ -6,16 +6,19 @@ function [status]=write_trr(initstruct,trajstruct)
 % Jon Kapla, 2014-04-22
 
 % Add fields if trajstruct comes from read_xtc()
-if(isfield(trajstruct,'v')) 
-    trajstruct.v=trajstruct.x;
-    trajstruct.v.value=0;
+if(~isfield(trajstruct,'v')) 
+    v(3,trajinit.natoms)=single(0);
+    trajstruct.v=libpointer('singlePtr',v);
+    disp('write_trr: Adding field v');
 end
-if(isfield(trajstruct,'f')) 
-    trajstruct.f=trajstruct.x;
-    trajstruct.f.value=0;
+if(~isfield(trajstruct,'f')) 
+    f(3,trajinit.natoms)=single(0);
+    trajstruct.v=libpointer('singlePtr',f);
+    disp('write_trr: Adding field f');
 end
-if(isfield(trajstruct,'lam')) 
-    trajstruct.lam=0;
+if(~isfield(trajstruct,'lam')) 
+    trajstruct.lam=single(0);
+    disp('write_trr: Adding field lam');
 end
 
 % Library call

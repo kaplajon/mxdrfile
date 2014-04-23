@@ -48,7 +48,7 @@ USAGE: [rstatus,trajstruct]=read_xtc(initstruct)
 status - int32
 trajstruct:
     step - (int32) timestep
-    time - (int32) time in ps
+    time - (single) time in ps
     box - (singlePtr) Box as a 3x3 array
     x - (singlePtr) Coordinates as an 3xnatoms array
     natoms - (int32) Number of atoms in trajectory
@@ -58,8 +58,8 @@ trajstruct:
 USAGE: [rstatus,trajstruct]=read_xtc(initstruct)
 trajstruct:
     step - (int32) timestep
-    time - (int32) time in ps
-    lam - (int32) lambda
+    time - (single) time in ps
+    lam - (single) lambda
     box - (singlePtr) Box as a 3x3 array
     x - (singlePtr) Coordinates as a 3xnatoms array
     v - (singlePtr) Velocities as a 3xnatoms array
@@ -76,7 +76,7 @@ wstatus - (int32)
 initstruct.fhandle - filehandle with writeaccess
 trajstruct:
     step - (int32) timestep
-    time - (int32) time in ps
+    time - (single) time in ps
     box - (singlePtr) Box as a 3x3 array
     x - (singlePtr) Coordinates as an 3xnatoms array
     natoms - (int32) Number of atoms in trajectory
@@ -90,8 +90,8 @@ wstatus - (int32)
 initstruct.fhandle - filehandle with writeaccess
 trajstruct:
     step - (int32) timestep
-    time - (int32) time in ps
-    lam - (int32) lambda
+    time - (single) time in ps
+    lam - (single) lambda
     box - (singlePtr) Box as a 3x3 array
     x - (singlePtr) Coordinates as a 3xnatoms array
     v - (singlePtr) Velocities as a 3xnatoms array
