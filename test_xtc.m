@@ -19,27 +19,23 @@ outfile='testwrite.xtc';
 [pathstr,name,ext] = fileparts(outfile);
 outtype=ext;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-inhandle=libpointer;
-inhandle=inittraj(infile,'r');
-outhandle=libpointer;
-outhandle=inittraj(outfile,'w');
+[~,rTraj]=inittraj(infile,'r');
+[~,wTraj]=inittraj(outfile,'w');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-[status,natoms]=read_xtc_natoms(infile);
 frame=0;
 while true % Frameloop
-    [rstatus,tstep,ttime,tbox,tx]=read_xtc(inhandle,natoms);
-    % Do something with the coordinates
-    newcoords=tx;
-    newcoords.val=newcoords.val*0.8;
-    % Write newcoords to a new xtc file
-    wstatus=write_xtc(outhandle, natoms, tstep.value, ttime.value, tbox, newcoords, single(1000));
+    [rstatus,traj]=read_xtc(rTraj);
     if(not(rstatus))
         frame=frame+1;
 	disp('Frame'),disp(frame)
     else
         break
     end
+    % Do something with the coordinates
+    traj.x.value=traj.x.value*0.8;
+    % Write newcoords to a new xtc file
+    wstatus=write_xtc(wTraj, traj);
 end
-status=closetraj(inhandle)
-status=closetraj(outhandle)
+status=closetraj(rTraj);
+status=closetraj(wTraj);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

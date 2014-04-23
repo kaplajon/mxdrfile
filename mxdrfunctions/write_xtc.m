@@ -1,15 +1,11 @@
-function [status]=write_xtc(handle,natoms,step,time,tbox,tx,prec)
+function [status]=write_xtc(initstruct,trajstruct)
 % Write an xtc or trr file and return tstep,ttime,tbox and tx
-% handle (libpointer) - filehandle from inittraj()
-% natoms (int32) -  from traj_read_natoms
-% step (int32) - timestep
-% time (single) - time in ps
-% tbox (singlePtr) - box as a 3x3 array
-% tx (singlePtr) - Coordinates as a 3*natoms array
-% prec (single) - Precision of xtc file (default 1000)
-% Jon Kapla, 2014-04-17
+% initstruct - filehandle from inittraj()
+% trajstruct - trajectory structure from read_xtc() or read_trr()
+% Jon Kapla, 2014-04-22
 % Library call
     func='write_xtc';
-    args={'libxdrfile',func, handle, natoms, step, time, tbox, tx, prec};
+    args={'libxdrfile',func, initstruct.fhandle, trajstruct.natoms, trajstruct.step, trajstruct.time, trajstruct.box, trajstruct.x, trajstruct.prec};
     status=calllib(args{:});
+    catch_xdr_errors(status);
 end %End function

@@ -1,17 +1,27 @@
-function [status]=write_trr(handle,natoms,step,time,lam,tbox,tx,tv,tf)
+function [status]=write_trr(initstruct,trajstruct)
 % Write a trr file and return status
-% handle (libpointer) - filehandle from inittraj()
-% natoms (int32) -  from read_trr_natoms
-% step (int32) - step number
-% time (single) - time in ps
-% lam (single) - lambda
-% tbox (singlePtr) - Box as a 3x3 array
-% tx, tv, tf (singlePtr) - coordinates, velocities and forces as 3xnatoms arrays
-% Jon Kapla, 2014-04-17
+% initstruct - filehandle from inittraj()
+% trajstruct - trajectory structure from read_xtc or read_trr
+%
+% Jon Kapla, 2014-04-22
+
+% Add fields if trajstruct comes from read_xtc()
+if(isfield(trajstruct,'v')) 
+    trajstruct.v=trajstruct.x;
+    trajstruct.v.value=0;
+end
+if(isfield(trajstruct,'f')) 
+    trajstruct.f=trajstruct.x;
+    trajstruct.f.value=0;
+end
+if(isfield(trajstruct,'lam')) 
+    trajstruct.lam=0;
+end
 
 % Library call
     func='write_trr';
-    args={'libxdrfile',func, handle, natoms, step, time,lam, tbox, tx, tv, tf};
+    args={'libxdrfile',func, initstruct.fhandle, trajstruct.natoms, trajstruct.step, trajstruct.time,...
+    trajstruct.lam, trajstruct.box, trajstruct.x, trajstruct.v, trajstruct.f};
     status=calllib(args{:});
-
+    catch_xdr_errors(status);
 end %End function

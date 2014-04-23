@@ -1,0 +1,121 @@
+Jon Kapla, 2014-04-23
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% USING THE XDRFILE LIBRARY WITH MATLAB %%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+-- The libxdrfile lib was compiled with the following:
+
+> export MXWORKDIR=$PWD
+> cd xdrfile-1.1.1
+> ./configure --enable-shared --prefix=$MXWORKDIR
+> make
+
+-- The header files for libxdrfile had to be slightly altered to be loadable into
+matlab. The altered files reside inside include/
+
+-- The thunk library file and the fileheaders.m was created by running the
+following command in matlab:
+
+> loadlibrary('libxdrfile','xdrfile_xtc.h','addheader','xdrfile_trr','addheader','xdrfile','mfilename','fileheaders.m','thunkfile
+ %name','libxdr_thunk')
+
+The library can then be loaded with: loadlibrary('libxdrfile',@fileheaders)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% THE WRAPPER FUNCTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%% OPEN AND CLOSE %%%%%%%%%%%%%%%%%%%%%%%%
+--> FILE: inittraj.m
+
+USAGE: [status,initstruct]=inittraj(fname,action)
+
+fname - (str) Filename of .xtc or .trr file
+action - (str) 'r' or 'w' for read or write access. WARNING! 'w' will overwrite fname!!
+status - (int32)
+initstruct:
+    fhandle - (lib.pointer) XDR file handle
+    natoms - (int32) Number of atoms in trajectory
+
+--> FILE: closetraj.m
+USAGE: status = closetraj(initstruct)
+
+%%%%%%%%%%%%%%%%%%%%%% READ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+--> FILE: read_xtc.m
+
+USAGE: [rstatus,trajstruct]=read_xtc(initstruct)
+
+status - int32
+trajstruct:
+    step - (int32) timestep
+    time - (int32) time in ps
+    box - (singlePtr) Box as a 3x3 array
+    x - (singlePtr) Coordinates as an 3xnatoms array
+    natoms - (int32) Number of atoms in trajectory
+    prec - (single) Precision of XTC file
+
+--> FILE: read_trr.m
+USAGE: [rstatus,trajstruct]=read_xtc(initstruct)
+trajstruct:
+    step - (int32) timestep
+    time - (int32) time in ps
+    lam - (int32) lambda
+    box - (singlePtr) Box as a 3x3 array
+    x - (singlePtr) Coordinates as a 3xnatoms array
+    v - (singlePtr) Velocities as a 3xnatoms array
+    f - (singlePtr) Forces as a 3xnatoms array
+    natoms - (int32) Number of atoms in trajectory
+    prec - (single(1000.)) default precision for writing xtc
+
+%%%%%%%%%%%%%%%%%%%%%% WRITE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+--> FILE: write_xtc.m
+
+USAGE: wstatus=write_xtc(initstruct, trajstruct)
+
+wstatus - (int32)
+initstruct.fhandle - filehandle with writeaccess
+trajstruct:
+    step - (int32) timestep
+    time - (int32) time in ps
+    box - (singlePtr) Box as a 3x3 array
+    x - (singlePtr) Coordinates as an 3xnatoms array
+    natoms - (int32) Number of atoms in trajectory
+    prec - (single) Precision of XTC file
+	
+--> FILE: write_trr.m
+
+USAGE: wstatus=write_trr(initstruct, trajstruct)
+
+wstatus - (int32)
+initstruct.fhandle - filehandle with writeaccess
+trajstruct:
+    step - (int32) timestep
+    time - (int32) time in ps
+    lam - (int32) lambda
+    box - (singlePtr) Box as a 3x3 array
+    x - (singlePtr) Coordinates as a 3xnatoms array
+    v - (singlePtr) Velocities as a 3xnatoms array
+    f - (singlePtr) Forces as a 3xnatoms array
+    natoms - (int32) Number of atoms in trajectory
+
+%%%%%%%%%%%%%%%%%%%%%% HELPERS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+--> FILE: catch_xdr_errors.m
+
+USAGE: catch_xdr_errors(status)
+status - int32
+
+--> FILE: read_xtc_natoms.m
+
+USAGE: [status,natoms]=read_xtc_natoms(fname)
+
+fname - (str) Filename with .xtc extension
+status - int32
+natoms - int32
+
+--> FILE: read_trr_natoms.m
+
+USAGE: [status,natoms]=read_trr_natoms(fname)
+
+fname - (str) Filename with .trr extension
+status - int32
+natoms - int32

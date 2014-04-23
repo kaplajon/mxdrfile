@@ -13,33 +13,25 @@ if(not(libisloaded('libxdrfile'))) % Load XDR functions
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 infile='eq.trr';
-[pathstr,name,ext] = fileparts(infile);
-intype=ext;
 outfile='testwrite.trr';
-[pathstr,name,ext] = fileparts(outfile);
-outtype=ext;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-inhandle=libpointer;
-inhandle=inittraj(infile,'r');
-outhandle=libpointer;
-outhandle=inittraj(outfile,'w');
+[~,rTraj]=inittraj(infile,'r');
+[~,wTraj]=inittraj(outfile,'w');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-[status,natoms]=read_trr_natoms(infile);
 frame=0;
 while true % Frameloop
-    [rstatus,tstep,ttime,tlam,tbox,tx,tv,tf]=read_trr(inhandle,natoms);
-    % Do something with the coordinates
-    newcoords=tx;
-    newcoords.val=newcoords.val*0.8;
-    % Write newcoords to a new xtc file
-    wstatus=write_trr(outhandle, natoms, tstep.value, ttime.value, tlam.value, tbox, newcoords, tv, tf);
+    [rstatus,traj]=read_trr(rTraj);
     if(not(rstatus))
         frame=frame+1;
 	disp('Frame'),disp(frame)
     else
         break
     end
+    % Do something with the coordinates
+    % Write newcoords to a new xtc file
+    traj.x.value=traj.x.value*0.8;
+    wstatus=write_trr(wTraj,traj);
 end
-status=closetraj(inhandle)
-status=closetraj(outhandle)
+status=closetraj(rTraj);
+status=closetraj(wTraj);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
