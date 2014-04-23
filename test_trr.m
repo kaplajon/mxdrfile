@@ -12,7 +12,7 @@ if(not(libisloaded('libxdrfile'))) % Load XDR functions
     [notfound,warnings]=loadlibrary('libxdrfile',@fileheaders);
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-infile='eq.trr';
+infile='test.trr';
 outfile='testwrite.trr';
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 [~,rTraj]=inittraj(infile,'r');

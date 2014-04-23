@@ -12,7 +12,7 @@ if(not(libisloaded('libxdrfile'))) % Load XTC functions
     [notfound,warnings]=loadlibrary('libxdrfile',@fileheaders);
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-infile='eq.xtc';
+infile='test.xtc';
 [pathstr,name,ext] = fileparts(infile);
 intype=ext;
 outfile='testwrite.xtc';
