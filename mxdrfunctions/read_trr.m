@@ -18,8 +18,8 @@ traj=struct;
     tbox=libpointer('singlePtr',b); % Box as a 3x3 matrix
     x(3,trajinit.natoms)=single(0);
     tx=libpointer('singlePtr',x); % Coordinates as a 3xnatoms matrix
-    tv=libpointer('singlePtr',x); % Coordinates as a 3xnatoms matrix
-    tf=libpointer('singlePtr',x); % Coordinates as a 3xnatoms matrix
+    tv=libpointer('singlePtr',x); % Velocities as a 3xnatoms matrix
+    tf=libpointer('singlePtr',x); % Forces as a 3xnatoms matrix
     % Library call
     func='read_trr';
     args={'libxdrfile',func, trajinit.fhandle, trajinit.natoms, tstep, ttime, tlam, tbox, tx, tv, tf};

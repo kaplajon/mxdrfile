@@ -21,8 +21,8 @@ function [status,trajinit]=inittraj(file,action)
 	    error('Only .trr and .xtc supported!')
 	end
     elseif(strcmp(action,'w'))
-	status=0
-	natoms=0
+	status=0;
+	natoms=0;
     end
     catch_xdr_errors(status);
     trajinit.fhandle=calllib('libxdrfile','xdrfile_open',file,action);

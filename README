@@ -16,8 +16,8 @@ matlab. The altered files reside inside include/
 -- The thunk library file and the fileheaders.m was created by running the
 following command in matlab:
 
-> loadlibrary('libxdrfile','xdrfile_xtc.h','addheader','xdrfile_trr','addheader','xdrfile','mfilename','fileheaders.m','thunkfile
- %name','libxdr_thunk')
+> loadlibrary('libxdrfile','xdrfile_xtc.h','addheader','xdrfile_trr','addheader','xdrfile','mfilename','fileheaders.m',...
+ 'thunkfilename','libxdr_thunk')
 
 The library can then be loaded with: loadlibrary('libxdrfile',@fileheaders)
 
