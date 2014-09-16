@@ -1,9 +1,10 @@
 function [status,trajinit]=inittraj(file,action)
+% [status,trajinit]=inittraj(file,action)
 % Open a trajectory file with either libxdrfile. Returns a libpointer
 % filehandle and the number of atoms in the existing trajectory file as
 % fields in a struct variable:
-% init.handle
-% init.natoms
+% trajinit.handle
+% trajinit.natoms
 %
 % file (str) - filename of xtc or trr file to open
 % action (str) - r or w for read or write access

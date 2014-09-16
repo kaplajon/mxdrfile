@@ -1,7 +1,7 @@
 function catch_xdr_errors(status)
+% catch_xdr_errors(status)
 % Help function to catch the error codes from libxdrfile.
-%
-%
+% status - int
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Copyright 2014 Jon Kapla
 %%

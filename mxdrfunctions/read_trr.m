@@ -1,5 +1,5 @@
 function [status,traj]=read_trr(trajinit)
-%function [status,tstep,ttime,tlam,tbox,tx,tv,tf]=read_trr(handle,natoms)
+%function [status,traj]=read_trr(trajinit)
 % Read a trr file and return step,time,box and coordinates (xyz)
 % trajinit - filestructure from inittraj()
 % traj.step (int32) - timestep

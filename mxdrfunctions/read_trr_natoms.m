@@ -1,5 +1,6 @@
 function [status,natoms]=read_trr_natoms(file)
-% Reads an xtc or trr file and returns natoms
+% [status,natoms]=read_trr_natoms(file)
+% Reads a trr file directly and returns natoms
 % 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Copyright 2014 Jon Kapla

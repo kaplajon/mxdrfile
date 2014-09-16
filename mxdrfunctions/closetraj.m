@@ -1,4 +1,5 @@
 function [status]=closetraj(init)
+% [status]=closetraj(initstruct)
 % Close xdrfile trajectory files
 % initstruct - from inittraj()
 %

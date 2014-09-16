@@ -1,4 +1,5 @@
 function [status]=write_xtc(initstruct,trajstruct)
+% [status]=write_xtc(initstruct,trajstruct)
 % Write an xtc or trr file and return tstep,ttime,tbox and tx
 % initstruct - filehandle from inittraj()
 % trajstruct - trajectory structure from read_xtc() or read_trr()

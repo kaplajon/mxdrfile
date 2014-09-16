@@ -1,4 +1,5 @@
 function [status,traj]=read_xtc(trajinit)
+% [status,traj]=read_xtc(initstruct)
 % Read an xtc or trr file and return tstep,ttime,tbox and tx
 % initstruct - from inittraj()
 % traj.step (int32) - step number
