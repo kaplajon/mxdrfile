@@ -5,10 +5,10 @@
 /* #undef AC_APPLE_UNIVERSAL_BUILD */
 
 /* Hardware and OS version for build host */
-#define BUILD_MACHINE "Linux 3.2.0-59-generic x86_64"
+#define BUILD_MACHINE "Linux 3.2.0-60-generic x86_64"
 
 /* Date and time for build */
-#define BUILD_TIME "Thu Apr 17 09:55:17 CEST 2014"
+#define BUILD_TIME "Tue Sep 16 15:01:56 CEST 2014"
 
 /* User doing build */
 #define BUILD_USER "jkapl@mmkdmpc"

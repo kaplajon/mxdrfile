@@ -9,9 +9,13 @@ Jon Kapla, 2014-04-23
 > cd xdrfile-1.1.1
 > ./configure --enable-shared --prefix=$MXWORKDIR
 > make
+> make install
 
--- The header files for libxdrfile had to be slightly altered to be loadable into
-matlab. The altered files reside inside include/
+-- The header files for libxdrfile had to be slightly altered with a patch to be loadable into
+matlab. The altered files reside inside include/:
+
+>cd $MXWORKDIR
+>patch -p0 <headers.patch
 
 -- The thunk library file and the fileheaders.m was created by running the
 following command in matlab:
