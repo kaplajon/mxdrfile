@@ -5,14 +5,14 @@ function [status,natoms]=read_xtc_natoms(file)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Copyright 2014 Jon Kapla
 %%
-%% This file is part of xdrfile-matlab.
+%% This file is part of mxdrfile.
 %%
-%% xdrfile-matlab is free software: you can redistribute it and/or modify
+%% mxdrfile is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU Lesser General Public License as published by
 %% the Free Software Foundation, either version 3 of the License, or
 %% (at your option) any later version.
 %%
-%% xdrfile-matlab is distributed in the hope that it will be useful,
+%% mxdrfile is distributed in the hope that it will be useful,
 %% but WITHOUT ANY WARRANTY; without even the implied warranty of
 %% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 %% GNU Lesser General Public License for more details.
