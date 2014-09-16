@@ -1,0 +1,46 @@
+% Copyright 2014 Jon Kapla
+%
+% This file is part of xdrfile-matlab.
+%
+% xdrfile-matlab is free software: you can redistribute it and/or modify
+% it under the terms of the GNU Lesser General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% xdrfile-matlab is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU Lesser General Public License for more details.
+%
+% You should have received a copy of the GNU Lesser General Public License
+% along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% USING THE XDRFILE LIBRARY WITH MATLAB %%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+-- The libxdrfile lib was compiled with the following:
+
+> export MXWORKDIR=$PWD
+> cd xdrfile-1.1.1
+> ./configure --enable-shared --prefix=$MXWORKDIR
+> make
+> make install
+
+-- The header files for libxdrfile had to be slightly altered with a patch to be loadable into
+matlab. The altered files reside inside include/:
+
+>cd $MXWORKDIR
+>patch -p0 <headers.patch
+
+-- The thunk library file and the fileheaders.m was created by running the
+following command in matlab:
+
+> loadlibrary('libxdrfile','xdrfile_xtc.h','addheader','xdrfile_trr','addheader','xdrfile','mfilename','fileheaders.m',...
+ 'thunkfilename','libxdr_thunk')
+
+The library can then be loaded with: loadlibrary('libxdrfile',@fileheaders)
+
+%%%%%%%%%%%%% TESTING THE LIBRARY %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The library read and write functions can be tested by running the included test scripts test_trr.m
+and test_xtc.m in Matlab after completing the above install procedure.
