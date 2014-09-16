@@ -1,3 +1,13 @@
+function [status,trajinit]=inittraj(file,action)
+% Open a trajectory file with either libxdrfile. Returns a libpointer
+% filehandle and the number of atoms in the existing trajectory file as
+% fields in a struct variable:
+% init.handle
+% init.natoms
+%
+% file (str) - filename of xtc or trr file to open
+% action (str) - r or w for read or write access
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Copyright 2014 Jon Kapla
 %%
@@ -16,17 +26,6 @@
 %% You should have received a copy of the GNU Lesser General Public License
 %% along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [status,trajinit]=inittraj(file,action)
-% Open a trajectory file with either libxdrfile. Returns a libpointer
-% filehandle and the number of atoms in the existing trajectory file as
-% fields in a struct variable:
-% init.handle
-% init.natoms
-%
-% file (str) - filename of xtc or trr file to open
-% action (str) - r or w for read or write access
-%
-% Jon Kapla, 2014-04-22
     natoms=0;
     status=0;
     [pathstr,name,ext] = fileparts(file);

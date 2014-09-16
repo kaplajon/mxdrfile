@@ -1,3 +1,13 @@
+function [status,traj]=read_trr(trajinit)
+%function [status,tstep,ttime,tlam,tbox,tx,tv,tf]=read_trr(handle,natoms)
+% Read a trr file and return step,time,box and coordinates (xyz)
+% trajinit - filestructure from inittraj()
+% traj.step (int32) - timestep
+% traj.time (single) - time in ps
+% traj.lam (single) - lambda
+% traj.box (singlePtr) - box as a 3x3 array
+% traj.(x, v, f) (singlePtr) - coords, velocities and force as 3*natoms array
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Copyright 2014 Jon Kapla
 %%
@@ -16,17 +26,6 @@
 %% You should have received a copy of the GNU Lesser General Public License
 %% along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [status,traj]=read_trr(trajinit)
-%function [status,tstep,ttime,tlam,tbox,tx,tv,tf]=read_trr(handle,natoms)
-% Read a trr file and return step,time,box and coordinates (xyz)
-% trajinit - filestructure from inittraj()
-% traj.step (int32) - timestep
-% traj.time (single) - time in ps
-% traj.lam (single) - lambda
-% traj.box (singlePtr) - box as a 3x3 array
-% traj.(x, v, f) (singlePtr) - coords, velocities and force as 3*natoms array
-%
-% Jon Kapla, 2014-04-22
 traj=struct;
 % Define pointers for frame extraction
     tstep=libpointer('int32Ptr',int32(0)); % Timestep

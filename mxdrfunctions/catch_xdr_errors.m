@@ -1,3 +1,7 @@
+function catch_xdr_errors(status)
+% Help function to catch the error codes from libxdrfile.
+%
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Copyright 2014 Jon Kapla
 %%
@@ -16,7 +20,6 @@
 %% You should have received a copy of the GNU Lesser General Public License
 %% along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function catch_xdr_errors(status)
 
     exdr={ 'OK', 'Header', 'String', 'Double', 'Integer', 'Float', 'Unsigned integer', 'Compressed 3D coordinate',...
     'Closing file', 'Magic number', 'Not enough memory', 'End of file', 'File not found' };

@@ -1,3 +1,6 @@
+function [status,natoms]=read_trr_natoms(file)
+% Reads an xtc or trr file and returns natoms
+% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Copyright 2014 Jon Kapla
 %%
@@ -16,10 +19,6 @@
 %% You should have received a copy of the GNU Lesser General Public License
 %% along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [status,natoms]=read_trr_natoms(file)
-% Reads an xtc or trr file and returns natoms
-% 
-% Jon Kapla, 2014-04-17
         na=libpointer('int32Ptr',int32(0));
         status=calllib('libxdrfile','read_trr_natoms',file,na);
         natoms=na.value

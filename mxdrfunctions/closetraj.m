@@ -1,3 +1,7 @@
+function [status]=closetraj(init)
+% Close xdrfile trajectory files
+% initstruct - from inittraj()
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Copyright 2014 Jon Kapla
 %%
@@ -16,11 +20,6 @@
 %% You should have received a copy of the GNU Lesser General Public License
 %% along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [status]=closetraj(init)
-% Close xdrfile trajectory files
-% initstruct - from inittraj()
-%
-% Jon Kapla, 2014-04-22
     status=calllib('libxdrfile','xdrfile_close',init.fhandle);
     catch_xdr_errors(status);
 end % End function

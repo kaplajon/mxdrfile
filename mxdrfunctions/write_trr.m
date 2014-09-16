@@ -1,3 +1,8 @@
+function [status]=write_trr(initstruct,trajstruct)
+% Write a trr file and return status
+% initstruct - filehandle from inittraj()
+% trajstruct - trajectory structure from read_xtc or read_trr
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Copyright 2014 Jon Kapla
 %%
@@ -16,12 +21,6 @@
 %% You should have received a copy of the GNU Lesser General Public License
 %% along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [status]=write_trr(initstruct,trajstruct)
-% Write a trr file and return status
-% initstruct - filehandle from inittraj()
-% trajstruct - trajectory structure from read_xtc or read_trr
-%
-% Jon Kapla, 2014-04-22
 
 % Add fields if trajstruct comes from read_xtc()
 if(~isfield(trajstruct,'v')) 

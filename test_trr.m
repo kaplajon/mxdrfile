@@ -1,4 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% This script tests the read and write of
+%% trr files with libxdrfile from gmx
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Copyright 2014 Jon Kapla
 %%
 %% This file is part of xdrfile-matlab.
@@ -15,11 +18,6 @@
 %%
 %% You should have received a copy of the GNU Lesser General Public License
 %% along with Foobar. If not, see <http://www.gnu.org/licenses/>.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Jon Kapla, 2014-04-17, jon.kapla@mmk.su.se
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% This script tests the read and write of
-%% trr files with libxdrfile from gmx
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 dir0=pwd;
 addpath(genpath([dir0 filesep 'mxdrfunctions']))

@@ -1,3 +1,11 @@
+function [status,traj]=read_xtc(trajinit)
+% Read an xtc or trr file and return tstep,ttime,tbox and tx
+% initstruct - from inittraj()
+% traj.step (int32) - step number
+% traj.time (single) - time in ps
+% traj.box (singlePtr) - Box as a 3x3 array, use traj.box.value to get the actual numbers
+% traj.x (singlePtr) - Coordinates as a 3xnatoms array, use traj.x.value to access the coordinates
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Copyright 2014 Jon Kapla
 %%
@@ -16,15 +24,6 @@
 %% You should have received a copy of the GNU Lesser General Public License
 %% along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [status,traj]=read_xtc(trajinit)
-% Read an xtc or trr file and return tstep,ttime,tbox and tx
-% initstruct - from inittraj()
-% traj.step (int32) - step number
-% traj.time (single) - time in ps
-% traj.box (singlePtr) - Box as a 3x3 array, use traj.box.value to get the actual numbers
-% traj.x (singlePtr) - Coordinates as a 3xnatoms array, use traj.x.value to access the coordinates
-
-% Jon Kapla, 2014-04-22
 traj=struct;
 % Define pointers for frame extraction
     tstep=libpointer('int32Ptr',int32(0)); % Timestep
