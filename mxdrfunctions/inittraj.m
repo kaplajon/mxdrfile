@@ -25,7 +25,7 @@ function [status,trajinit]=inittraj(file,action)
 %% GNU Lesser General Public License for more details.
 %%
 %% You should have received a copy of the GNU Lesser General Public License
-%% along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+%% along with mxdrfile. If not, see <http://www.gnu.org/licenses/>.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     natoms=0;
     status=0;

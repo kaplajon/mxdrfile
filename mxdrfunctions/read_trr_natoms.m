@@ -18,7 +18,7 @@ function [status,natoms]=read_trr_natoms(file)
 %% GNU Lesser General Public License for more details.
 %%
 %% You should have received a copy of the GNU Lesser General Public License
-%% along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+%% along with mxdrfile. If not, see <http://www.gnu.org/licenses/>.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         na=libpointer('int32Ptr',int32(0));
         status=calllib('libxdrfile','read_trr_natoms',file,na);

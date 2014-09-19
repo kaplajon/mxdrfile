@@ -19,7 +19,7 @@ function [status]=closetraj(init)
 %% GNU Lesser General Public License for more details.
 %%
 %% You should have received a copy of the GNU Lesser General Public License
-%% along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+%% along with mxdrfile. If not, see <http://www.gnu.org/licenses/>.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     status=calllib('libxdrfile','xdrfile_close',init.fhandle);
     catch_xdr_errors(status);

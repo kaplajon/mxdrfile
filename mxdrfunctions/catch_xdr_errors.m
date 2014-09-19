@@ -18,7 +18,7 @@ function catch_xdr_errors(status)
 %% GNU Lesser General Public License for more details.
 %%
 %% You should have received a copy of the GNU Lesser General Public License
-%% along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+%% along with mxdrfile. If not, see <http://www.gnu.org/licenses/>.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     exdr={ 'OK', 'Header', 'String', 'Double', 'Integer', 'Float', 'Unsigned integer', 'Compressed 3D coordinate',...
