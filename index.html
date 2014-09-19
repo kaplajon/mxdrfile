@@ -1,0 +1,227 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>mxdrfile by kaplajon</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>mxdrfile</h1>
+        <p>mxdrfile is a set of wrapper functions that enables reading and writing Gromacs .xtc and .trr trajectory files in Matlab. The wrapper functions make direct use of the xdrfile library from Gromacs through the intrinsic loadlibrary function in Matlab.</p>
+        <p class="view"><a href="https://github.com/kaplajon/mxdrfile">View the Project on GitHub <small>kaplajon/mxdrfile</small></a></p>
+        <ul>
+          <li><a href="https://github.com/kaplajon/mxdrfile/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/kaplajon/mxdrfile/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/kaplajon/mxdrfile">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="about-mxdrfile" class="anchor" href="#about-mxdrfile"><span class="octicon octicon-link"></span></a>About mxdrfile</h1>
+
+<p>The mxdrfile wrapper functions were created with the aim of improving the abilities of fast trajectory analysis in Matlab. The library enables reading and writing of .xtc and .trr trajectory files through the use of the original <a href="http://www.gromacs.org/Downloads">xdrfile library</a> from the Gromacs team.</p>
+
+<p>Both the original xdrfile library and mxdrfile are open source and released under the <a href="http://www.gnu.org/licenses/lgpl.html">LGPLv3</a> license.</p>
+
+<h1>
+<a name="using-the-library-with-matlab" class="anchor" href="#using-the-library-with-matlab"><span class="octicon octicon-link"></span></a>Using the Library with Matlab</h1>
+
+<p>The libxdrfile lib was compiled with the following:</p>
+
+<blockquote>
+<p>&gt; export MXWORKDIR=$PWD</p>
+
+<p>&gt; cd xdrfile-1.1.1</p>
+
+<p>&gt;./configure --enable-shared --prefix=$MXWORKDIR</p>
+
+<p>&gt; make</p>
+
+<p>&gt; make install</p>
+</blockquote>
+
+<p>The header files for libxdrfile had to be slightly altered with a patch to be loadable into
+matlab. The altered files reside inside include/:</p>
+
+<blockquote>
+<p>&gt; cd $MXWORKDIR</p>
+
+<p>&gt; patch -p0 &lt;headers.patch</p>
+</blockquote>
+
+<p>The thunk library file and the fileheaders.m was created by running the
+following command in matlab:</p>
+
+<blockquote>
+<p>&gt; addpath include/xdrfile lib</p>
+
+<p>&gt; loadlibrary('libxdrfile','xdrfile_xtc.h','addheader','xdrfile_trr','addheader',...
+'xdrfile','mfilename','fileheaders.m','thunkfilename','libxdr_thunk')</p>
+</blockquote>
+
+<p>The library can then be loaded with:</p>
+
+<blockquote>
+<p>&gt; addpath include/xdrfile lib</p>
+
+<p>&gt; loadlibrary('libxdrfile',@fileheaders)</p>
+</blockquote>
+
+<h3>
+<a name="testing-the-library" class="anchor" href="#testing-the-library"><span class="octicon octicon-link"></span></a>Testing the Library</h3>
+
+<p>The library read and write functions can be tested by running the included test scripts test_trr.m
+and test_xtc.m in Matlab after completing the above install procedure.</p>
+
+<h1>
+<a name="the-wrapper-functions" class="anchor" href="#the-wrapper-functions"><span class="octicon octicon-link"></span></a>The Wrapper Functions</h1>
+
+<h2>
+<a name="open-and-close" class="anchor" href="#open-and-close"><span class="octicon octicon-link"></span></a>Open and Close</h2>
+
+<p>--&gt; FILE: inittraj.m</p>
+
+<p>USAGE: [status,initstruct]=inittraj(fname,action)</p>
+
+<ul>
+<li>fname - (str) Filename of .xtc or .trr file</li>
+<li>action - (str) 'r' or 'w' for read or write access. WARNING! 'w' will overwrite fname!!</li>
+<li>status - (int32)</li>
+<li>initstruct:
+
+<ul>
+<li>fhandle - (lib.pointer) XDR file handle</li>
+<li>natoms - (int32) Number of atoms in trajectory</li>
+</ul>
+</li>
+</ul><p>--&gt; FILE: closetraj.m</p>
+
+<p>USAGE: status = closetraj(initstruct)</p>
+
+<h2>
+<a name="read" class="anchor" href="#read"><span class="octicon octicon-link"></span></a>Read</h2>
+
+<p>--&gt; FILE: read_xtc.m</p>
+
+<p>USAGE: [rstatus,trajstruct]=read_xtc(initstruct)</p>
+
+<ul>
+<li>status - int32</li>
+<li>trajstruct:
+
+<ul>
+<li>step - (int32) timestep</li>
+<li>time - (single) time in ps</li>
+<li>box - (singlePtr) Box as a 3x3 array</li>
+<li>x - (singlePtr) Coordinates as an 3xnatoms array</li>
+<li>natoms - (int32) Number of atoms in trajectory</li>
+<li>prec - (single) Precision of XTC file</li>
+</ul>
+</li>
+</ul><p>--&gt; FILE: read_trr.m</p>
+
+<p>USAGE: [rstatus,trajstruct]=read_xtc(initstruct)</p>
+
+<ul>
+<li>trajstruct:
+
+<ul>
+<li>step - (int32) timestep</li>
+<li>time - (single) time in ps</li>
+<li>lam - (single) lambda</li>
+<li>box - (singlePtr) Box as a 3x3 array</li>
+<li>x - (singlePtr) Coordinates as a 3xnatoms array</li>
+<li>v - (singlePtr) Velocities as a 3xnatoms array</li>
+<li>f - (singlePtr) Forces as a 3xnatoms array</li>
+<li>natoms - (int32) Number of atoms in trajectory</li>
+<li>prec - (single(1000.)) default precision for writing xtc</li>
+</ul>
+</li>
+</ul><h2>
+<a name="write" class="anchor" href="#write"><span class="octicon octicon-link"></span></a>Write</h2>
+
+<p>--&gt; FILE: write_xtc.m</p>
+
+<p>USAGE: wstatus=write_xtc(initstruct, trajstruct)</p>
+
+<ul>
+<li>wstatus - (int32)</li>
+<li>initstruct.fhandle - filehandle with writeaccess</li>
+<li>trajstruct:
+
+<ul>
+<li>step - (int32) timestep</li>
+<li>time - (single) time in ps</li>
+<li>box - (singlePtr) Box as a 3x3 array</li>
+<li>x - (singlePtr) Coordinates as an 3xnatoms array</li>
+<li>natoms - (int32) Number of atoms in trajectory</li>
+<li>prec - (single) Precision of XTC file</li>
+</ul>
+</li>
+</ul><p>--&gt; FILE: write_trr.m</p>
+
+<p>USAGE: wstatus=write_trr(initstruct, trajstruct)</p>
+
+<ul>
+<li>wstatus - (int32)</li>
+<li>initstruct.fhandle - filehandle with writeaccess</li>
+<li>trajstruct:
+
+<ul>
+<li>step - (int32) timestep</li>
+<li>time - (single) time in ps</li>
+<li>lam - (single) lambda</li>
+<li>box - (singlePtr) Box as a 3x3 array</li>
+<li>x - (singlePtr) Coordinates as a 3xnatoms array</li>
+<li>v - (singlePtr) Velocities as a 3xnatoms array</li>
+<li>f - (singlePtr) Forces as a 3xnatoms array</li>
+<li>natoms - (int32) Number of atoms in trajectory</li>
+</ul>
+</li>
+</ul><h2>
+<a name="helpers" class="anchor" href="#helpers"><span class="octicon octicon-link"></span></a>Helpers</h2>
+
+<p>--&gt; FILE: catch_xdr_errors.m</p>
+
+<p>USAGE: catch_xdr_errors(status)</p>
+
+<ul>
+<li>status - int32</li>
+</ul><p>--&gt; FILE: read_xtc_natoms.m</p>
+
+<p>USAGE: [status,natoms]=read_xtc_natoms(fname)</p>
+
+<ul>
+<li>fname - (str) Filename with .xtc extension</li>
+<li>status - int32</li>
+<li>natoms - int32</li>
+</ul><p>--&gt; FILE: read_trr_natoms.m</p>
+
+<p>USAGE: [status,natoms]=read_trr_natoms(fname)</p>
+
+<ul>
+<li>fname - (str) Filename with .trr extension</li>
+<li>status - int32</li>
+<li>natoms - int32</li>
+</ul>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/kaplajon">kaplajon</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
