@@ -1,0 +1,26 @@
+*** xdrfile-1.1.4/src/xdrfile.c	Tue Jun 24 07:33:48 2014
+--- xdrfile-patch.c	Thu Sep 25 16:37:38 2014
+***************
+*** 793,798 ****
+--- 793,799 ----
+  	float *lfp, inv_precision;
+  	int tmp, *thiscoord,  prevcoord[3];
+  	unsigned int bitsize;
++ 	const float* ptrstart = ptr;
+    
+      bitsizeint[0] = 0;
+      bitsizeint[1] = 0;
+***************
+*** 918,923 ****
+--- 919,929 ----
+  			run -= is_smaller;
+  			is_smaller--;
+  		}
++         if ((lfp-ptrstart)+run > size3)
++         {
++         	fprintf(stderr, "Buffer overrun during decompression.\n");
++         	return 0;
++         }
+  		if (run > 0)
+          {
+  			thiscoord += 3;

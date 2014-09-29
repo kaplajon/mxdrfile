@@ -1,1 +1,8 @@
 *~
+*.so
+fileheaders.m
+testwrite.trr
+testwrite.xtc
+bin/
+lib/
+include/
