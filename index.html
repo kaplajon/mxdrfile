@@ -30,9 +30,9 @@
         <h1>
 <a name="about-mxdrfile" class="anchor" href="#about-mxdrfile"><span class="octicon octicon-link"></span></a>About mxdrfile</h1>
 
-<p>The mxdrfile wrapper functions were created with the aim of improving the abilities of fast trajectory analysis in Matlab. The library enables reading and writing of .xtc and .trr trajectory files through the use of the original <a href="http://www.gromacs.org/Downloads">xdrfile library</a> from the Gromacs team.</p>
+<p>The mxdrfile wrapper functions were created with the aim of improving the abilities of fast trajectory analysis in Matlab. The library enables reading and writing of .xtc and .trr trajectory files through the use of the original <a href="http://www.gromacs.org/Developer_Zone/Programming_Guide/XTC_Library">xdrfile library</a> from the Gromacs team.</p>
 
-<p>Both the original xdrfile library and mxdrfile are open source and released under the <a href="http://www.gnu.org/licenses/lgpl.html">LGPLv3</a> license.</p>
+<p>Both the latest version of the  xdrfile library and mxdrfile are open source and released under a BSD license.</p>
 
 <h1>
 <a name="using-the-library-with-matlab" class="anchor" href="#using-the-library-with-matlab"><span class="octicon octicon-link"></span></a>Using the Library with Matlab</h1>
@@ -41,8 +41,9 @@
 
 <blockquote>
 <p>&gt; export MXWORKDIR=$PWD</p>
-
-<p>&gt; cd xdrfile-1.1.1</p>
+<p>A patch from the mdtraj package fixes an <a href="https://github.com/SimTk/mdtraj/issues/606">issue with buffer overrun</a>:</p>
+<p>&gt; patch -p0 < fix_buffer_overrun_xdrfile-1.1.4.patch</p>
+<p>&gt; cd xdrfile-1.1.4</p>
 
 <p>&gt;./configure --enable-shared --prefix=$MXWORKDIR</p>
 
