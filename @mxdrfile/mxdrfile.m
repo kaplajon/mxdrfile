@@ -1,4 +1,4 @@
-classdef mxdrfile
+classdef mxdrfile < handle
    % USAGE: traj=mxdrfile('file.trr')
    % USAGE: traj=mxdrfile('file.xtc')
    % This class creates a trajectory object with methods for reading
@@ -40,14 +40,14 @@ classdef mxdrfile
       fhandle;
       natoms;
       status;
-      step;%=libpointer('int32Ptr',int32(0)); % Timestep
-      time;%=libpointer('singlePtr',single(0)); % Time in ps
-      lam;%=libpointer('singlePtr',single(0)); % Lambda
-      box;%=libpointer('singlePtr',b); % Box as a 3x3 matrix
-      x;%=libpointer('singlePtr',); % Coordinates as a 3xnatoms matrix
-      v;%=libpointer('singlePtr'); % Velocities as a 3xnatoms matrix
-      f;%=libpointer('singlePtr'); % Forces as a 3xnatoms matrix
-      prec;%=libpointer('singlePtr',single(0)); % XTC file precision
+      step;
+      time;
+      lam;
+      box;
+      x;
+      v;
+      f;
+      prec;
    end
    methods 
       function obj = mxdrfile(fname)
@@ -57,11 +57,6 @@ classdef mxdrfile
             error('mxdrfile:InvalidInitialization',...
                'Must provide a filename.trr or filename.xtc')
          end
-         %if nargin == 2
-            %Open the second file for writing
-         %   obj.outfile=outfile
-         %   obj.fhandle=calllib('libxdrfile','xdrfile_open',obj.outfile,'w');
-         %end         
          obj.fname=fname;
          [pathstr,fname,ext] = fileparts(obj.fname);
          if(strcmp(ext,'.xtc'))
@@ -76,6 +71,7 @@ classdef mxdrfile
          %Get the XDRFILEptr object
          obj.fhandle=calllib('libxdrfile','xdrfile_open',obj.fname,'r');
          
+	 % Initialize class props
          obj.ftype=ext;
          obj.step=int32(0); % Timestep
          obj.time=single(0); % Time in ps
@@ -88,10 +84,10 @@ classdef mxdrfile
          obj.f=libpointer('singlePtr',x); % Forces as a 3xnatoms matrix
          obj.prec=single(1000); % default XTC file precision
          %Read the first frame
-         obj.read
+         obj.read;
       end % mxdrfile
  
-      function read(obj)
+      function obj=read(obj)
       %Read the next frame of the trajectory   
          step=libpointer('int32Ptr',int32(0)); % Timestep
          time=libpointer('singlePtr',single(0)); % Time in ps
@@ -102,25 +98,25 @@ classdef mxdrfile
               args={'libxdrfile',func, obj.fhandle, obj.natoms, step,...
                   time, lam, obj.box, obj.x, obj.v, obj.f};
               obj.status=calllib(args{:});
-	      obj.lam=lam.value
+	      obj.lam=lam.value;
           elseif(strcmp(obj.ftype,'.xtc'))
               func='read_xtc';
               args={'libxdrfile',func, obj.fhandle,obj.natoms, step,...
                   time, obj.box, obj.x, prec};
               obj.status=calllib(args{:});
-              obj.prec=prec.value
+              obj.prec=prec.value;
           end
               % libxdrfile: read_trr() never returns exdrENDOFFILE but exdrINT instead
           if(obj.status==4 && obj.natoms~=0)
-	          status=11;
+	          obj.status=11;
           end
           catch_xdr_errors(obj.status);
-          obj.step=step.value
-          obj.time=time.value
+          obj.step=step.value;
+          obj.time=time.value;
       end % read
       
       function delete(obj)
-         if(strcmp(class(trajinit.fhandle),'lib.pointer'))
+         if(strcmp(class(obj.fhandle),'lib.pointer'))
              [~,obj.fhandle]=calllib('libxdrfile','xdrfile_close',obj.fhandle);
          end
       end % delete
