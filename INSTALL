@@ -34,6 +34,7 @@
 -- The libxdrfile lib was compiled with the following:
 
 > export MXWORKDIR=$PWD
+> tar xzvf xdrfile-1.1.4.tar.gz
 
 -- The following patch fixes a buffer overrun bug reported here
    https://github.com/SimTk/mdtraj/issues/606
