@@ -95,12 +95,14 @@ classdef mxdrfile
       %Read the next frame of the trajectory   
          step=libpointer('int32Ptr',int32(0)); % Timestep
          time=libpointer('singlePtr',single(0)); % Time in ps
+         lam=libpointer('singlePtr',single(0)); % Lambda
          prec=libpointer('singlePtr',single(1000)); % default XTC file precision
           if(strcmp(obj.ftype,'.trr'))
               func='read_trr';
               args={'libxdrfile',func, obj.fhandle, obj.natoms, step,...
-                  time, obj.lam, obj.box, obj.x, obj.v, obj.f};
+                  time, lam, obj.box, obj.x, obj.v, obj.f};
               obj.status=calllib(args{:});
+	      obj.lam=lam.value
           elseif(strcmp(obj.ftype,'.xtc'))
               func='read_xtc';
               args={'libxdrfile',func, obj.fhandle,obj.natoms, step,...
