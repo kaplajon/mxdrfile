@@ -87,7 +87,11 @@ initstruct:
     natoms - (int32) Number of atoms in trajectory
 
 --> FILE: closetraj.m
-USAGE: status = closetraj(initstruct)
+USAGE: [status,initstruct]=closetraj(initstruct)
+        Warning! Operating on a closed lib.pointer
+        file handle may cause segmentation faults. Make sure
+        to "pass by reference" using initstruct as both
+        input and output when closing trajectories!
 
 %%%%%%%%%%%%%%%%%%%%%% READ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 --> FILE: read_xtc.m
