@@ -44,6 +44,9 @@ end
 % Library call
     func='write_xtc';
     args={'libxdrfile',func, initstruct.fhandle, trajstruct.natoms, trajstruct.step, trajstruct.time, trajstruct.box, trajstruct.x, trajstruct.prec};
+    %status=calllib('libxdrfile',func, initstruct.fhandle,...
+    %    trajstruct.natoms, trajstruct.step, trajstruct.time,...
+    %    trajstruct.box, trajstruct.x,single(1000))% trajstruct.prec);
     status=calllib(args{:});
     catch_xdr_errors(status);
 end %End function

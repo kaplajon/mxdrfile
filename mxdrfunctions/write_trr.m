@@ -41,21 +41,22 @@ if(~strcmp(class(initstruct.fhandle),'lib.pointer'))
     catch_xdr_errors(12)
 end
 % Add fields if trajstruct comes from read_xtc()
-if(~isfield(trajstruct,'v')) 
-    v(3,trajinit.natoms)=single(0);
-    trajstruct.v=libpointer('singlePtr',v);
-    disp('write_trr: Adding field v');
+if(~strcmp(class(trajstruct),'mxdrfile'))
+    if(~isfield(trajstruct,'v'))
+        v(3,trajstruct.natoms)=single(0);
+        trajstruct.v=libpointer('singlePtr',v);
+        disp('write_trr: Adding field v');
+    end
+    if(~isfield(trajstruct,'f'))
+        f(3,trajstruct.natoms)=single(0);
+        trajstruct.v=libpointer('singlePtr',f);
+        disp('write_trr: Adding field f');
+    end
+    if(~isfield(trajstruct,'lam'))
+        trajstruct.lam=single(0);
+        disp('write_trr: Adding field lam');
+    end
 end
-if(~isfield(trajstruct,'f')) 
-    f(3,trajinit.natoms)=single(0);
-    trajstruct.v=libpointer('singlePtr',f);
-    disp('write_trr: Adding field f');
-end
-if(~isfield(trajstruct,'lam')) 
-    trajstruct.lam=single(0);
-    disp('write_trr: Adding field lam');
-end
-
 % Library call
     func='write_trr';
     args={'libxdrfile',func, initstruct.fhandle, trajstruct.natoms, trajstruct.step, trajstruct.time,...
