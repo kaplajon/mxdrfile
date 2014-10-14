@@ -48,14 +48,17 @@ classdef mxdrfile < handle
       v;
       f;
       prec;
+      ndx;
    end
    methods 
-      function obj = mxdrfile(fname)
+      function obj = mxdrfile(fname,ndxfilename)
           % Initialize the trajectory and read the first frame to fill all
           % possible fields.
          if nargin < 1
             error('mxdrfile:InvalidInitialization',...
                'Must provide a filename.trr or filename.xtc')
+         elseif nargin ==2
+	         obj.ndx=read_ndx(ndxfilename);
          end
          obj.fname=fname;
          [pathstr,fname,ext] = fileparts(obj.fname);
