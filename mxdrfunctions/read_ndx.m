@@ -1,8 +1,8 @@
-function [ind]=read_ndx(ndxfile)
-% [ind]=read_ndx(ndxfile)
+function ind=read_ndx(ndxfile)
+% ind=read_ndx(ndxfile)
 % Function to parse Gromacs .ndx index files, returns struct with index groups as fields
 % ndxfile (str) - filename of the ndx file
-% ind (int32) - struct w index groups as fields containing indeces as nx1 arrays
+% ind (1x1 struct) - struct with index groups as fields containing indeces as [nx1 int32] arrays
 % Jon Kapla 141014
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% This file is part of mxdrfile.
