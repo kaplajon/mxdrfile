@@ -33,8 +33,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 -- The libxdrfile lib was compiled with the following:
 
-> export MXWORKDIR=$PWD
+> cd my/path/to/mxdrfile
 > tar xzvf xdrfile-1.1.4.tar.gz
+> export MXWORKDIR=$PWD/mxdrfunctions
 
 -- The following patch fixes a buffer overrun bug reported here
    https://github.com/SimTk/mdtraj/issues/606
@@ -46,29 +47,31 @@
 > ./configure --enable-shared --prefix=$MXWORKDIR
 > make
 > make install
+> make test
 
 -- The header files for libxdrfile had to be slightly altered with a patch
    to be loadable into matlab. The altered files reside inside include/:
 
 >cd $MXWORKDIR
->patch -p0 <headers.patch
+>patch -p0 <../headers.patch
 
 -- The thunk library file and the fileheaders.m was created by running the
 following command in matlab:
 
-> addpath include/xdrfile lib
-> loadlibrary('libxdrfile','xdrfile_xtc.h','addheader','xdrfile_trr','addheader','xdrfile','mfilename','fileheaders.m',...
- 'thunkfilename','libxdr_thunk')
+> cd mxdrfunctions
+> addpath(genpath(pwd))
+> loadlibrary('libxdrfile','xdrfile_xtc.h','addheader','xdrfile_trr','addheader','xdrfile','mfilename','fileheaders.m' 'thunkfilename','libxdr_thunk')
 
 The library can then be loaded with:
 
-> addpath include/xdrfile lib
+> addpath(genpath(fullpath('my','path','to','mxdrfile','mxdrfunctions')))
 > loadlibrary('libxdrfile',@fileheaders)
 
 %%%%%%%%%%%%% TESTING THE LIBRARY %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The library read and write functions can be tested by running the included test scripts test_trr.m
-and test_xtc.m in Matlab after completing the above install procedure.
+The library read and write functions can be tested by running the
+included test scripts test_trr.m and test_xtc.m in Matlab after
+completing the above install procedure.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

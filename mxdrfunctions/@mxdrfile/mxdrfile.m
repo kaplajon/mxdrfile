@@ -1,6 +1,6 @@
 classdef mxdrfile < handle
    % USAGE: traj=mxdrfile('file.trr')
-   % USAGE: traj=mxdrfile('file.xtc')
+   % USAGE: traj=mxdrfile('file.xtc','index.ndx')
    % This class creates a trajectory object with methods for reading
    % properties from a trajectory in xtc or trr format.
    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
