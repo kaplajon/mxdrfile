@@ -33,9 +33,7 @@
 %% POSSIBILITY OF SUCH DAMAGE.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 dir0=pwd;
-addpath(genpath([dir0 filesep 'mxdrfunctions']))
-addpath(genpath([dir0 filesep 'lib']))
-addpath(genpath([dir0 filesep 'include']))
+addpath(genpath(fullfile(dir0,'mxdrfunctions')))
 if(not(libisloaded('libxdrfile'))) % Load XDR functions
     [notfound,warnings]=loadlibrary('libxdrfile',@fileheaders);
 end

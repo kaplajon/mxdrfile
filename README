@@ -33,8 +33,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 -- The libxdrfile lib was compiled with the following:
 
-> export MXWORKDIR=$PWD
+> cd my/path/to/mxdrfile
 > tar xzvf xdrfile-1.1.4.tar.gz
+> export MXWORKDIR=$PWD/mxdrfunctions
 
 -- The following patch fixes a buffer overrun bug reported here
    https://github.com/SimTk/mdtraj/issues/606
@@ -46,29 +47,65 @@
 > ./configure --enable-shared --prefix=$MXWORKDIR
 > make
 > make install
+> make test
 
 -- The header files for libxdrfile had to be slightly altered with a patch
    to be loadable into matlab. The altered files reside inside include/:
 
 >cd $MXWORKDIR
->patch -p0 <headers.patch
+>patch -p0 <../headers.patch
 
 -- The thunk library file and the fileheaders.m was created by running the
 following command in matlab:
 
-> addpath include/xdrfile lib
-> loadlibrary('libxdrfile','xdrfile_xtc.h','addheader','xdrfile_trr','addheader','xdrfile','mfilename','fileheaders.m',...
- 'thunkfilename','libxdr_thunk')
+> cd mxdrfunctions
+> addpath(genpath(pwd))
+> loadlibrary('libxdrfile','xdrfile_xtc.h','addheader','xdrfile_trr','addheader','xdrfile','mfilename','fileheaders.m' 'thunkfilename','libxdr_thunk')
 
 The library can then be loaded with:
 
-> addpath include/xdrfile lib
+> addpath(genpath(fullpath('my','path','to','mxdrfile','mxdrfunctions')))
 > loadlibrary('libxdrfile',@fileheaders)
 
 %%%%%%%%%%%%% TESTING THE LIBRARY %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The library read and write functions can be tested by running the included test scripts test_trr.m
-and test_xtc.m in Matlab after completing the above install procedure.
+The library read and write functions can be tested by running the
+included test scripts test_trr.m and test_xtc.m in Matlab after
+completing the above install procedure.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% THE MXDRFILE CLASS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+--> FILE: @mxdrfile/mxdrfile.m
+
+USAGE: trj=mxdrfile(trajfile [,indexfile])
+
+trajfile - (str) Trajectory filename with .trr or .xtc extension
+indexfile - (str) OPTIONAL: Gromacs indexfile in .ndx format
+
+CLASS PROPERTIES:
+
+fname - (str) Trajectory filename
+ftype - (str) Trajectory filetype (by extension)
+fhandle - (1x1 lib.pointer) File handle for the open trajfile
+natoms - (int32) Number of atoms in trajectory
+status - (int32) Status of trajectory processing, 0=OK
+step - (int32) Trajectory step number
+time - (int32) Time in ps
+lam - (int32) Lambda
+box - (1x1 lib.pointer) box as a 3x3 matrix: value [3x3 single]
+x - (1x1 lib.pointer) Coordinates: value [3xnatoms single]
+v - (1x1 lib.pointer) Velocities (trr only): value [3xnatoms single]
+f - (1x1 lib.pointer) Forces (trr only):  value [3xnatoms single]
+prec - (int32) Precision of xtc files (default 1000)
+ndx - (1x1 struct) If indexfile is given field names are ndx groups: [nx1 int32]
+
+CLASS METHODS
+
+read - read next frame in trajectory
+delete - Close trajectory file when the class object is destroyed
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%% THE WRAPPER FUNCTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -172,3 +209,10 @@ USAGE: [status,natoms]=read_trr_natoms(fname)
 fname - (str) Filename with .trr extension
 status - int32
 natoms - int32
+
+--> FILE: read_ndx.m
+
+USAGE: ndx=read_ndx(ndxfile)
+
+ndx - (1x1 struct) Field names are ndx-groups [nx1 int32]
+ndxfile - (str) Filename with .ndx extension

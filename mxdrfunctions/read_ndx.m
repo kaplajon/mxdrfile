@@ -1,6 +1,9 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% This script tests the read and write of
-%% xtc files with libxdrfile from gmx
+function ind=read_ndx(ndxfile)
+% ind=read_ndx(ndxfile)
+% Function to parse Gromacs .ndx index files, returns struct with index groups as fields
+% ndxfile (str) - filename of the ndx file
+% ind (1x1 struct) - struct with index groups as fields containing indeces as [nx1 int32] arrays
+% Jon Kapla 141014
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% This file is part of mxdrfile.
 %%
@@ -32,36 +35,38 @@
 %% ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 %% POSSIBILITY OF SUCH DAMAGE.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-dir0=pwd;
-addpath(genpath(fullfile(dir0,'mxdrfunctions')))
-if(not(libisloaded('libxdrfile'))) % Load XTC functions
-    [notfound,warnings]=loadlibrary('libxdrfile',@fileheaders);
-end
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-infile='test.xtc';
-[pathstr,name,ext] = fileparts(infile);
-intype=ext;
-outfile='testwrite.xtc';
-[pathstr,name,ext] = fileparts(outfile);
-outtype=ext;
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-[~,rTraj]=inittraj(infile,'r');
-[~,wTraj]=inittraj(outfile,'w');
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-frame=0;
-while true % Frameloop
-    [rstatus,traj]=read_xtc(rTraj);
-    if(not(rstatus))
-        frame=frame+1;
-	disp('Frame'),disp(frame)
-    else
-        break
+    [f,m]=fopen(ndxfile,'r');
+    if(m)
+        err=MException('mxdrfile:read_ndx',m);
+        errCause=MException('read_ndx:Error', strcat('ndxfilename = ',ndxfile));
+        err = addCause(err, errCause);
+        throw(err);
     end
-    % Do something with the coordinates
-    traj.x.value=traj.x.value*0.8;
-    % Write newcoords to a new xtc file
-    wstatus=write_xtc(wTraj, traj);
-end
-[status,rTraj]=closetraj(rTraj);
-[status,wTraj]=closetraj(wTraj);
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    g=textscan(f,'%s');
+    j=0;k=0;
+    for i=1:size(g{1}(:))
+	if (strcmp(g{1}(i),']'))
+	    continue
+	end
+	if (strcmp(g{1}(i),'['))
+	    j=j+1;
+	    k=0;
+	    continue
+	end
+	k=k+1;
+	if (k==1)
+	    fields(j)=g{1}(i);
+	else
+	    indeces{j}(k-1)=g{1}(i);
+	end
+    end
+    ind=cell2struct(indeces,fields,2);
+    for fn=1:size(fields,2)
+	a=fields{fn};
+	ind.(a)=char(ind.(a));
+	ind.(a)=int32(str2num(ind.(a)(:,:)));
+	fprintf('%s(%d) ',a,size(ind.(a),1))
+    end
+    fprintf('\n',a,size(ind.(a),1))
+    fclose(f);
+end % Function
