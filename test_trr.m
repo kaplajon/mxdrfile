@@ -32,11 +32,7 @@
 %% ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 %% POSSIBILITY OF SUCH DAMAGE.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-dir0=pwd;
-addpath(genpath(fullfile(dir0,'mxdrfunctions')))
-if(not(libisloaded('libxdrfile'))) % Load XDR functions
-    [notfound,warnings]=loadlibrary('libxdrfile',@fileheaders);
-end
+loadmxdrfile
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 infile='test.trr';
 outfile='testwrite.trr';
@@ -60,4 +56,5 @@ while true % Frameloop
 end
 [status,rTraj]=closetraj(rTraj);
 [status,rTraj]=closetraj(wTraj);
+disp('OK!')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

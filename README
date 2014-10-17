@@ -31,38 +31,21 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%% USING THE XDRFILE LIBRARY WITH MATLAB %%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
--- The libxdrfile lib was compiled with the following:
+INSTALLATION:
 
 > cd my/path/to/mxdrfile
-> tar xzvf xdrfile-1.1.4.tar.gz
-> export MXWORKDIR=$PWD/mxdrfunctions
-
--- The following patch fixes a buffer overrun bug reported here
-   https://github.com/SimTk/mdtraj/issues/606
-   The fix was posted on the gromacs mailing list
-   by Robert McGibbon 2014-09-26.
-
-> patch -p0 <fix_buffer_overrun_1.1.4.patch
-> cd xdrfile-1.1.4
-> ./configure --enable-shared --prefix=$MXWORKDIR
 > make
-> make install
+
+Pay attention to any errors in the make procedure. If needed install required
+libraries and/or consult the libxdrfile documentation.
+
 > make test
 
--- The header files for libxdrfile had to be slightly altered with a patch
-   to be loadable into matlab. The altered files reside inside include/:
+If all went ok, the library can be loaded in Matlab with:
 
->cd $MXWORKDIR
->patch -p0 <../headers.patch
+>loadmxdrfile
 
--- The thunk library file and the fileheaders.m was created by running the
-following command in matlab:
-
-> cd mxdrfunctions
-> addpath(genpath(pwd))
-> loadlibrary('libxdrfile','xdrfile_xtc.h','addheader','xdrfile_trr','addheader','xdrfile','mfilename','fileheaders.m' 'thunkfilename','libxdr_thunk')
-
-The library can then be loaded with:
+or
 
 > addpath(genpath(fullpath('my','path','to','mxdrfile','mxdrfunctions')))
 > loadlibrary('libxdrfile',@fileheaders)

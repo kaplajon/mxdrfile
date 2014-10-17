@@ -32,18 +32,10 @@
 %% ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 %% POSSIBILITY OF SUCH DAMAGE.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-dir0=pwd;
-addpath(genpath(fullfile(dir0,'mxdrfunctions')))
-if(not(libisloaded('libxdrfile'))) % Load XTC functions
-    [notfound,warnings]=loadlibrary('libxdrfile',@fileheaders);
-end
+loadmxdrfile
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 infile='test.xtc';
-[pathstr,name,ext] = fileparts(infile);
-intype=ext;
 outfile='testwrite.xtc';
-[pathstr,name,ext] = fileparts(outfile);
-outtype=ext;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 [~,rTraj]=inittraj(infile,'r');
 [~,wTraj]=inittraj(outfile,'w');

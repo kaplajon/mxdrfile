@@ -16,9 +16,9 @@ xdrfile: $(MXDRPATH)/include/xdrfile/xdrfile.h
 $(MXDRPATH)/include/xdrfile/xdrfile.h:
 	@tar xzvf $(XDRFILE).tar.gz
 	@$(xdrpatch)
-	@cd $(XDRFILE) ;\
-		./configure --enable-shared --prefix=$(MXDRPATH);\
-		$(MAKE) install; $(MAKE) test
+	@cd $(XDRFILE) &&\
+		./configure --enable-shared --prefix=$(MXDRPATH) &&\
+		$(MAKE) install && $(MAKE) test
 .PHONY : clean
 clean:
 	@rm -r \
@@ -27,4 +27,6 @@ clean:
 	    $(MXDRPATH)/lib \
 	    $(MXDRPATH)/include \
 	    libxdr_thunk.so \
-	    fileheaders.m 
+	    fileheaders.m
+test:
+	@matlab -nosplash -nodisplay -r "test_trr;quit"

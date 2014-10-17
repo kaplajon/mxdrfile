@@ -33,15 +33,20 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 dir0=pwd;
 addpath(genpath(fullfile(dir0,'mxdrfunctions')))
-if exist('xdrfile.h')==2
-    if exist('fileheaders.m')==2
-        loadlibrary('libxdrfile',@fileheaders);
+if(not(libisloaded('libxdrfile')))
+    if exist('xdrfile.h')==2
+        if exist('fileheaders.m')==2
+            loadlibrary('libxdrfile',@fileheaders);
+        else
+            loadlibrary('libxdrfile','xdrfile_xtc.h','addheader',...
+                'xdrfile_trr','addheader','xdrfile','mfilename',...
+                'fileheaders.m','thunkfilename','libxdr_thunk');
+        end
     else
-        loadlibrary('libxdrfile','xdrfile_xtc.h','addheader',...
-            'xdrfile_trr','addheader','xdrfile','mfilename',...
-            'fileheaders.m','thunkfilename','libxdr_thunk');
+        err=MException('mxdrfile:loadmxdrfile','Lib is not loaded!');
+        errCause=MException('loadmxdrfile:Error',...
+            'libxdrfile not installed!');
+        err = addCause(err, errCause);
+        throw(err);
     end
-else
-    disp('libxdrfile is NOT loaded!')
-    disp('Make sure the lib and headerfiles are in matlabs path!')
 end
