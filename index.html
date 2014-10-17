@@ -127,7 +127,13 @@ and test_xtc.m in Matlab after completing the above install procedure.</p>
 </li>
 </ul><p>--&gt; FILE: closetraj.m</p>
 
-<p>USAGE: status = closetraj(initstruct)</p>
+<p>USAGE: [status,initstruct]=closetraj(initstruct)</p>
+</p>
+        Warning! Operating on a closed lib.pointer
+        file handle may cause segmentation faults. Make sure
+        to "pass by reference" using initstruct as both
+        input and output when closing trajectories!
+</p>
 
 <h2>
 <a name="read" class="anchor" href="#read"><span class="octicon octicon-link"></span></a>Read</h2>
