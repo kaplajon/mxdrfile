@@ -1,0 +1,11 @@
+exclude: ["mxdrfunctions","xdrfile-1.1.4","libxdr_thunk.so","fileheaders.m","testwrite.trr","testwrite.xtc"]
+keep_files:   [".git", ".svn"]
+# Where things are
+source:      .
+destination: ./_site
+plugins:     ./_plugins
+layouts:     ./_layouts
+includes:    ./_includes
+data_source: ./_data
+collections: null
+
