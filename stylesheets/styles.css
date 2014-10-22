@@ -13,7 +13,8 @@ body {
   padding: 50px 0;
   margin: 0;
   font: 14px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #555;
+/*  color: #555;*/
+  color: #000;
   font-weight: 300;
   background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAUdEVYdENyZWF0aW9uIFRpbWUAMy82LzEygrTcTAAAAFRJREFUSIljfPDggZRf5RIGGNjUHsNATz6jXmSL1Kb2GLiAX+USBnrymRgGGDCORgFmoNAXjEbBaBSMRsFoFIxGwWgUjEbBaBSMRsFoFIxGwWgUAABYNujumib3wAAAAABJRU5ErkJggg==') fixed;
 }
@@ -71,7 +72,7 @@ header {
 header h1 {
   margin: 0;
   padding: 0;
-  font-size: 24px;
+  font-size: 28px;
   line-height: 1.2;
   color: #069;
   text-shadow: rgba(255, 255, 255, 0.9) 0 1px 0;
@@ -81,7 +82,8 @@ header.without-description h1 {
 }
 header p {
   margin: 0;
-  color: #61778B;
+  /*color: #61778B;*/
+  color: #0000ff;
   width: 300px;
   font-size: 13px;
 }
@@ -201,6 +203,11 @@ h1, h2, h3, h4, h5, h6 {
 
 p, ul, ol, table, pre, dl {
   margin: 0 0 20px;
+}
+
+/* JK */
+ul {
+    color:#49497A
 }
 
 h1, h2, h3 {

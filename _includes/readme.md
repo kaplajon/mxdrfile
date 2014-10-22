@@ -32,7 +32,7 @@ completing the above install procedure.
 
 # The mxdrfile Class
 
---> FILE: @mxdrfile/mxdrfile.m
+**--> FILE: @mxdrfile/mxdrfile.m**
 
 USAGE: trj=mxdrfile(trajfile [,indexfile])
 
@@ -65,7 +65,7 @@ USAGE: trj=mxdrfile(trajfile [,indexfile])
 
 ## Open and Close
 
---> FILE: inittraj.m
+**--> FILE: inittraj.m**
 
 USAGE: [status,initstruct]=inittraj(fname,action)
 
@@ -76,7 +76,7 @@ USAGE: [status,initstruct]=inittraj(fname,action)
     * fhandle - (lib.pointer) XDR file handle
     * natoms - (int32) Number of atoms in trajectory
 
---> FILE: closetraj.m
+**--> FILE: closetraj.m**
 
 USAGE: [status,initstruct]=closetraj(initstruct)
         Warning! Operating on a closed lib.pointer
@@ -86,7 +86,7 @@ USAGE: [status,initstruct]=closetraj(initstruct)
 
 ## Read
 
---> FILE: read_xtc.m
+**--> FILE: read_xtc.m**
 
 USAGE: [rstatus,trajstruct]=read_xtc(initstruct)
 
@@ -99,7 +99,7 @@ USAGE: [rstatus,trajstruct]=read_xtc(initstruct)
     * natoms - (int32) Number of atoms in trajectory
     * prec - (single) Precision of XTC file
 
---> FILE: read_trr.m
+**--> FILE: read_trr.m**
 
 USAGE: [rstatus,trajstruct]=read_xtc(initstruct)
 
@@ -116,7 +116,7 @@ USAGE: [rstatus,trajstruct]=read_xtc(initstruct)
 
 ## Write
 
---> FILE: write_xtc.m
+**--> FILE: write_xtc.m**
 
 USAGE: wstatus=write_xtc(initstruct, trajstruct)
 
@@ -130,7 +130,7 @@ USAGE: wstatus=write_xtc(initstruct, trajstruct)
     * natoms - (int32) Number of atoms in trajectory
     * prec - (single) Precision of XTC file
 	
---> FILE: write_trr.m
+**--> FILE: write_trr.m**
 
 USAGE: wstatus=write_trr(initstruct, trajstruct)
 
@@ -148,12 +148,13 @@ USAGE: wstatus=write_trr(initstruct, trajstruct)
 
 ## Helpers
 
---> FILE: catch_xdr_errors.m
+**--> FILE: catch_xdr_errors.m**
 
 USAGE: catch_xdr_errors(status)
+
 * status - int32
 
---> FILE: read_xtc_natoms.m
+**--> FILE: read_xtc_natoms.m**
 
 USAGE: [status,natoms]=read_xtc_natoms(fname)
 
@@ -161,7 +162,7 @@ USAGE: [status,natoms]=read_xtc_natoms(fname)
 * status - int32
 * natoms - int32
 
---> FILE: read_trr_natoms.m
+**--> FILE: read_trr_natoms.m**
 
 USAGE: [status,natoms]=read_trr_natoms(fname)
 
@@ -169,7 +170,7 @@ USAGE: [status,natoms]=read_trr_natoms(fname)
 * status - int32
 * natoms - int32
 
---> FILE: read_ndx.m
+**--> FILE: read_ndx.m**
 
 USAGE: ndx=read_ndx(ndxfile)
 
