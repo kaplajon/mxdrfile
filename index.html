@@ -2,8 +2,11 @@
 layout: page
 title: mxdrfile
 ---
-{% markdown about.md %}
+{% capture about %}{% include about.md %}{% endcapture %}
+{{ about | markdownify }}
 
-{% markdown license.md %}
+{% capture license %}{% include license.md %}{% endcapture %}
+{{ license | markdownify }}
 
-{% markdown readme.md %}
+{% capture readme %}{% include readme.md %}{% endcapture %}
+{{ readme | markdownify }}
