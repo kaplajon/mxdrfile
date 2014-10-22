@@ -2,22 +2,26 @@
 
 ## Installation
 
-> cd my/path/to/mxdrfile
-> make
+
+>\> cd my/path/to/mxdrfile 
+>
+>\> make
+
 
 Pay attention to any errors in the make procedure. If needed install required
 libraries and/or consult the libxdrfile documentation.
 
-> make test
+>\> make test
 
 If all went ok, the library can be loaded in Matlab with:
 
->loadmxdrfile
+>\> loadmxdrfile
 
 or
 
-> addpath(genpath(fullpath('my','path','to','mxdrfile','mxdrfunctions')))
-> loadlibrary('libxdrfile',@fileheaders)
+>\> addpath(genpath(fullpath('my','path','to','mxdrfile','mxdrfunctions')))
+>
+>\> loadlibrary('libxdrfile',@fileheaders)
 
 ##  Testing the Library
 
