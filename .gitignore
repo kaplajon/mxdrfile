@@ -8,3 +8,5 @@ lib/
 include/
 xdrfile-1.1.4/
 _site
+buckle_example/aligned.xtc
+buckle_example/bucklefit.mat
