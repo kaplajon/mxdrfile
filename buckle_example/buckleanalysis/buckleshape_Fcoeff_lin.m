@@ -10,7 +10,17 @@
 % s can be a matrix, but g and Lx should be scalars. Output is the same
 % shape as s (row or column vector).
 %
-% ML 2014-01-26
+% The curvature along s is given by
+%
+% C=-(dXds.*d2Zds2-dZds.*d2Xds2)./(dXds.^2+dZds.^2).^1.5;
+%
+% where the convention is that positive curvature curves away from the
+% normal vector, which is in turn pointing upwards:
+%
+% nx = -dZds/sqrt(dXds.^2+dZds.^2),
+% nz =  dXds/sqrt(dXds.^2+dZds.^2).
+% 
+% ML 2016-07-05
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% This file is part of mxdrfile.

@@ -1,7 +1,7 @@
 % [s,x,z]=project_min2D_buckle(xzg,sInit,xx,zz,Lx)
 %
-% fit s(i) to a fixed Euler buckling shape, minimizing the sum of squares i
-% both x and z-directions.
+% fit s(i) to a fixed Euler buckling shape, minimizing the sum of squares
+% in both x and z-directions.
 %
 % fit function: x(i) = x0 + Lx*X(s(i),g);
 %               z(i) = z0 + Lx*Z(s(i),g)
@@ -12,13 +12,13 @@
 % fixed parameters    : x0,z0,g,Lx 
 %
 % input:
-% xzgInit=[x;z;g] : initial guess for curve parameters
-% sInit           : initial guess for arclength parameters (period = 1).
-% xx,zz           : fit points, in the same units as Lx.
+% xzg=[x0;z0;g]   : curve parameters
+% sInit           : initial guess for s parameters (period = 1).
+% xx,zz           : fit points to be projected, in the same units as Lx.
 % Lx : box-length in x direction, sets length scale of the problem
 % output: 
-%   s,x,z         : points (x,z) on the curve, and corresponding phase
-%                   parameters s.
+%   s,x,z         : points (x,z) on the curve, and corresponding s
+%                   parameters.
 %
 % ML 2014-03-31
 
