@@ -40,12 +40,12 @@ $L_x$ is kept fixed, but the arclength $L$ (and thus the dimensionless
 $g$ as well) can fluctuate slightly during a simulation. The parameter
 $s$ is proportional to an arclength parameter, so 
 \begin{equation}
-  \sqrt{\left(\frac{dX}{ds}\right)^2+\left(\frac{dZ}{ds}\right)^2}
+  \int_0^1\sqrt{\left(\frac{dX}{ds}\right)^2+\left(\frac{dZ}{ds}\right)^2}ds
   =L=\frac{L_x}{g}
 \end{equation}
 (although numerically, this is only true to about 3 decimal places).
 
-The curvature along the $x,z$ curve is given by
+The curvature along the buckled profile curve is given by
 \begin{multline}
   C(s)=-\frac{\frac{dX}{ds}\frac{d^2Z}{ds^2}-\frac{dZ}{ds}\frac{d^2z}{ds^2}}{
     \left(
