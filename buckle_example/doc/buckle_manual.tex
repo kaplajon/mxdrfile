@@ -24,7 +24,7 @@ various functions and their relations.
 \paragraph{The buckled shape}
 is handled by the function \texttt{buckleshape\_Fcoeff\_lin}, which
 computes a parametric curve $x(s),z(s)$ (Fig.~\ref{fig:buckle}) and
-some partial derivaties. The shape is parameterized by the projected
+some partial derivatives. The shape is parameterized by the projected
 length $L_x$ and the compression ratio $g$, which are related to the
 arc-length $L$ through
 \begin{equation}
@@ -35,15 +35,16 @@ refs.~\cite{gomez2016,hu2013} via
 \begin{equation}
   \lambda=\frac{L-L_x}{L}=1-g.
 \end{equation}
-This choice is practical when analysing buckling simulations, where
-$L_x$ is kept fixed, but the arclength $L$ (and thus the dimensionless
+This choice is practical when analyzing buckling simulations, where
+$L_x$ is kept fixed, but the arc-length $L$ (and thus the dimensionless
 $g$ as well) can fluctuate slightly during a simulation. The parameter
-$s$ is proportional to an arclength parameter, so 
+$s$ is proportional to an arc-length parameter, so 
 \begin{equation}
   \sqrt{\left(\frac{dX}{ds}\right)^2+\left(\frac{dZ}{ds}\right)^2}
-  =L=\frac{L_x}{g}
+  =L=\frac{L_x}{g}.
 \end{equation}
-(although numerically, this is only true to about 3 decimal places).
+(However, our implementation only respects this to a few decimal
+places).
 
 The curvature along the $x,z$ curve is given by
 \begin{multline}
@@ -56,7 +57,7 @@ where we use the convention that $C>0$ when the curve curves away from
 the (upward-pointing) normal vector.
 
 \texttt{buckleshape\_Fcoeff\_lin} uses an internal Fourier series
-representation, so the cuves are periodic in $s$, with period 1. As
+representation, so the curves are periodic in $s$, with period 1. As
 seen in Fig.~\ref{fig:buckle}, the curves are placed such that
 \begin{equation}
 x(0)=0,\quad
@@ -64,7 +65,7 @@ x(1)=L_x,\quad
 z(0.5)=0,
 \end{equation}
 and symmetry also dictates that $z(s)$ is symmetric, 
-and $x(s)-s$ is antisymmetric,  around $s=0.5$:
+and $x(s)-s$ is anti-symmetric,  around $s=0.5$:
 \begin{equation}
   z(s)=z(1-s),\quad
   x(s)=L_x-x(1-s).
