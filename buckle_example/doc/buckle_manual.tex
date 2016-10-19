@@ -42,11 +42,13 @@ $s$ is proportional to an arc-length parameter, so
 \begin{equation}
   \sqrt{\left(\frac{dX}{ds}\right)^2+\left(\frac{dZ}{ds}\right)^2}
   =L=\frac{L_x}{g}.
+%  \int_0^1\sqrt{\left(\frac{dX}{ds}\right)^2+\left(\frac{dZ}{ds}\right)^2}ds
+%  =L=\frac{L_x}{g}
 \end{equation}
+% ML: both expressions are true. However, the differential expression
+% implies the integral, but not the other way around.
 (However, our implementation only respects this to a few decimal
-places).
-
-The curvature along the $x,z$ curve is given by
+places). The curvature along the buckled profile curve is given by
 \begin{multline}
   C(s)=-\frac{\frac{dX}{ds}\frac{d^2Z}{ds^2}-\frac{dZ}{ds}\frac{d^2z}{ds^2}}{
     \left(
