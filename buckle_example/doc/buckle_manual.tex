@@ -41,9 +41,13 @@ $g$ as well) can fluctuate slightly during a simulation. The parameter
 $s$ is proportional to an arclength parameter, so 
 \begin{equation}
   \int_0^1\sqrt{\left(\frac{dX}{ds}\right)^2+\left(\frac{dZ}{ds}\right)^2}ds
-  =L=\frac{L_x}{g}
+  =L=\frac{L_x}{g}.
 \end{equation}
-(although numerically, this is only true to about 3 decimal places).
+Numerically,
+$\sqrt{\left(\frac{dX}{ds}\right)^2+\left(\frac{dZ}{ds}\right)^2} =
+\frac{L_x}{g}$ holds to at least 5 decimal places when using
+\texttt{buckleshape\_Fcoeff\_lin} with a Fourier truncated after 7
+terms.
 
 The curvature along the buckled profile curve is given by
 \begin{multline}

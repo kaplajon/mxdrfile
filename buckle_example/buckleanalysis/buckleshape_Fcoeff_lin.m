@@ -56,7 +56,7 @@
 
 function [X,Z,dXdg,dZdg,dXds,dZds,d2Xdg2,d2Zdg2,d2Xdgds,d2Zdgds,d2Xds2,d2Zds2]=buckleshape_Fcoeff_lin(s,g,Lx)
 
-persistent fx fdxds fd2xds2 fz fdzds fd2zds2 NC pp_x pp_dx pp_d2x pp_z pp_dz pp_d2z successfulTable
+persistent fx fdxds  fd2xds2 fz fdzds fd2zds2 NC pp_x pp_dx pp_d2x pp_z pp_dz pp_d2z successfulTable
 if(isempty(successfulTable) || ~successfulTable) % then constuct persistent lookup tables
     successfulTable=false;
     R=load('XZfourier_tables');
