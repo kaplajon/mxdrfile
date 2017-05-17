@@ -82,7 +82,7 @@ x=cumtrapz(cos(theta0))*ds;
 z=cumtrapz(sin(theta0))*ds;
 
 
-%% setup and solve bvp with lagrange multiplier, on 0<s<0.5
+%% setup and solve bvp with lagrange multiplier, on -0.5 < s < 0
 % (0<s<0.5 follows by symmetry)
 
 % y=[theta; theta' ; x ; y];

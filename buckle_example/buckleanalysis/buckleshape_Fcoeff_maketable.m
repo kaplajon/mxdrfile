@@ -58,7 +58,7 @@ if(1)
         subplot(2,1,1)
         hold on
         if(abs(G(k)-1)>1e-15) 
-            ax(k,:)=lsqcurvefit(fx,ones(1,3),ss,X);
+            ax(k,:)=lsqcurvefit(fx,ones(1,7),ss,X);
         else %manually set the coeficcients to zero for a straight line
             ax(k,:)=0;
         end
@@ -73,7 +73,7 @@ if(1)
         subplot(2,1,2)
         hold on
         if(abs(G(k)-1)>1e-15) 
-            az(k,:)=lsqcurvefit(fz,[1 zeros(1,3)],ss,Z);
+            az(k,:)=lsqcurvefit(fz,[1 zeros(1,7)],ss,Z);
         else %manually set the coeficcients to zero for a straight line
             az(k,:)=0;
         end
@@ -84,7 +84,7 @@ if(1)
         ylabel('Z(s) / L_x')
         box on
         xlabel('s')
-        legend('numerical bvp','Fourier approx.',3)
+        legend('numerical bvp','Fourier approx.')
         
         figure(1)
         subplot(2,1,1)
