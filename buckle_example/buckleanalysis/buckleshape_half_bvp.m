@@ -94,7 +94,7 @@ initfun=@(ss,p)([a*v(ss);
     interp1(s,x,ss,'pchip');
     interp1(s,z,ss,'pchip')]);
 solinit=bvpinit(s,initfun,0.5);
-opt=bvpset('reltol',1e-9,'abstol',1e-12);
+opt=bvpset('reltol',1e-10,'abstol',1e-12,'Nmax',1e4);
 
 sol4=bvp4c(odefun,bcfun,solinit,opt);
 % symmetrize
