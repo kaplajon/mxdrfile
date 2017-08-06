@@ -10,43 +10,7 @@ function pdb2gro(grofile,a,sysname,t0,aw)
 %           [ system ] entry in the .top file
 % t0        (optional) time in ps (default 0)
 % aw        argument to fopen (default 'w')
-%
-% ML 2013-01-xx
-  
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% This function writes a .gro file starting from a pdg struct
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% This file is part of mxdrfile.
-%%
-%% Copyright © 2016 Martin Lindén. All Rights Reserved.
-%%
-%% Redistribution and use in source and binary forms, with or without
-%% modification, are permitted provided that the following conditions are
-%% met:
-%%
-%% 1. Redistributions of source code must retain the above copyright
-%%    notice,this list of conditions and the following disclaimer.
-%%
-%% 2. Redistributions in binary form must reproduce the above copyright
-%%    notice, this list of conditions and the following disclaimer in the
-%%    documentation and/or other materials provided with the distribution.
-%%
-%% 3. The name of the author may not be used to endorse or promote products
-%%    derived from this software without specific prior written permission.
-%%
-%% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDER AND CONTRIBUTORS "AS IS"
-%% AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
-%% THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
-%% PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
-%% DIRECT,INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-%% (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-%% SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-%% HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
-%% STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
-%% ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-%% POSSIBILITY OF SUCH DAMAGE.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  
+
 if(~exist('t0','var')|| isempty(t0))
     t0=0;
 end
@@ -78,7 +42,7 @@ for k=1:N
     vx=0;vy=0;vz=0;
     
     fprintf(fid,'%5d%-5s%5s%5d%8.3f%8.3f%8.3f%8.4f%8.4f%8.4f\n',...
-        resNum,res,aName,aNum,x,y,z,vx,vy,vz);
+        resNum,res,aName,mod(aNum,1e5),x,y,z,vx,vy,vz);
     
     % new, from gromacs manual, with spaces in strings
     %fprintf(fid,'%5d%-5s%5s%5d%8.3f%8.3f%8.3f%8.4f%8.4f%8.4f\n',...
