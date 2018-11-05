@@ -41,30 +41,34 @@ if(1)
     G=linspace(0.15,1,30);
     az=[];
     ax=[];
-    
+    Ncoeff=7;
     for k=1:length(G)
-        B=buckleshape_half_bvp(G(k),true);
-        ss=linspace(-0.5,0.5,1e5);
-        X=deval(B,ss,3)/G(k);
-        Z=deval(B,ss,4)/G(k);
-        title([' Lx/L = ' num2str(G(k)) ])
         
-        %% fit and plot
-        fz=@(a,s)(  sum(diag(a)*(cos(2*pi*([(1:2:(2*(length(a)-1))) 0]')*s)),1));
-        fx=@(a,s)(s+sum(diag(a)*(sin(4*pi*([  1:(length(a)  )]')*s)),1));
+        if(abs(G(k)-1)>1e-12) 
+            B=buckleshape_half_bvp(G(k),true);
+            ss=linspace(-0.5,0.5,1e5);
+            X=deval(B,ss,3)/G(k);
+            Z=deval(B,ss,4)/G(k);
+            title([' Lx/L = ' num2str(G(k)) ])
         
+            %% fit and plot
+            fz=@(a,s)(  sum(diag(a)*(cos(2*pi*([(1:2:(2*(length(a)-1))) 0]')*s)),1));
+            fx=@(a,s)(s+sum(diag(a)*(sin(4*pi*([  1:(length(a)  )]')*s)),1));
+
+            ax(k,:)=lsqcurvefit(fx,ones(1,Ncoeff),ss,X);
+            az(k,:)=lsqcurvefit(fz,[1 zeros(1,Ncoeff)],ss,Z);
+        else
+            ax(k,:)=0;
+            az(k,:)=0;
+            X=ss;
+            Z=0*X;
+        end
+            
         figure(5)
         clf
         subplot(2,1,1)
         hold on
-        if(abs(G(k)-1)>1e-15) 
-            ax(k,:)=lsqcurvefit(fx,ones(1,3),ss,X);
-        else %manually set the coeficcients to zero for a straight line
-            ax(k,:)=0;
-        end
-        
         plot(ss,X-ss,'b','linew',2)
-        %plot(ss,fx(ax(k,:),ss)-X,'g--')
         plot(ss,fx(ax(k,:),ss)-ss,'r-.','linew',2)
         ylabel('X(s) / L_x - s ')
         box on
@@ -72,27 +76,20 @@ if(1)
         
         subplot(2,1,2)
         hold on
-        if(abs(G(k)-1)>1e-15) 
-            az(k,:)=lsqcurvefit(fz,[1 zeros(1,3)],ss,Z);
-        else %manually set the coeficcients to zero for a straight line
-            az(k,:)=0;
-        end
-        
         plot(ss,Z,'b','linew',2)
-        %plot(ss,fz(az(k,:),ss)-Z,'g--')
         plot(ss,fz(az(k,:),ss),'r-.','linew',2)
         ylabel('Z(s) / L_x')
         box on
         xlabel('s')
-        legend('numerical bvp','Fourier approx.',3)
+        legend('numerical bvp','Fourier approx.')
         
         figure(1)
         subplot(2,1,1)
         hold on
         plot(G(k)*fx(ax(k,:),ss),G(k)*fz(az(k,:),ss),'g-.','linew',2)
-        legend('initial guess','numerical bvp','Fourier approx')
+        legend('numerical bvp','Fourier approx')
         
-        pause(0.5)
+        pause(0.1)
     end
     
     save XZfourier_tables.mat G ax az fx fz
@@ -132,3 +129,26 @@ xlabel('L_x / L')
 ylabel('a_n^{(z)}')
 box on
 axis([0.14 1 -1.8 0.02])
+%% plot arclength check
+buckleshape_Fcoeff_lin(ss,0.5,1,true);
+ss=linspace(0,1,1e4);
+dsDiff=0*G;
+dsIntDiff=0*G;
+for n=1:numel(G)
+    [X,Z,dXdg,dZdg,dXds,dZds,d2Xdg2,d2Zdg2,d2Xdgds,d2Zdgds,d2Xds2,d2Zds2]=buckleshape_Fcoeff_lin(ss,G(n),1);
+    dsDiff(n)=max(abs(sqrt(dXds.^2+dZds.^2)-1/G(n)));
+    dsIntDiff(n)=trapz(sqrt(dXds.^2+dZds.^2))*mean(diff(ss))-1/G(n);
+end
+
+figure(3)
+clf
+hold on
+plot(G,dsDiff,'k')
+plot(G,abs(dsIntDiff),'b')
+set(gca,'yscale','log')
+xlabel('L_x / L')
+ylabel('\nabla_s(x,z) -1/g')
+legend('max(|...|)','|\Deltaarclength|')
+title('normalization anomaly of tangent vector')
+
+

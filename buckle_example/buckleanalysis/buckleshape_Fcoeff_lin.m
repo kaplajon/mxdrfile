@@ -1,5 +1,5 @@
 %[X,Z,dXdg,dZdg,dXds,dZds,d2Xdg2,d2Zdg2,d2Xdgds,d2Zdgds,d2Xds2,d2Zds2]=...
-%    buckleshape_Fcoeff_lin(s,g,Lx)
+%    buckleshape_Fcoeff_lin(s,g,Lx,reRead)
 %
 % computes the parameterized shape X(s),Z(s) of a buckled periodic rod with
 % projected x-length Lx, and compression factor g=Lx/L, where L is the
@@ -20,6 +20,8 @@
 % nx = -dZds/sqrt(dXds.^2+dZds.^2),
 % nz =  dXds/sqrt(dXds.^2+dZds.^2).
 % 
+% reRead : (optional) If true, Fourier coefficients are reread from disk.
+%  
 % ML 2016-07-05
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -54,10 +56,10 @@
 %% POSSIBILITY OF SUCH DAMAGE.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [X,Z,dXdg,dZdg,dXds,dZds,d2Xdg2,d2Zdg2,d2Xdgds,d2Zdgds,d2Xds2,d2Zds2]=buckleshape_Fcoeff_lin(s,g,Lx)
+function [X,Z,dXdg,dZdg,dXds,dZds,d2Xdg2,d2Zdg2,d2Xdgds,d2Zdgds,d2Xds2,d2Zds2]=buckleshape_Fcoeff_lin(s,g,Lx,reRead)
 
-persistent fx fdxds fd2xds2 fz fdzds fd2zds2 NC pp_x pp_dx pp_d2x pp_z pp_dz pp_d2z successfulTable
-if(isempty(successfulTable) || ~successfulTable) % then constuct persistent lookup tables
+persistent fx fdxds  fd2xds2 fz fdzds fd2zds2 NC pp_x pp_dx pp_d2x pp_z pp_dz pp_d2z successfulTable
+if(isempty(successfulTable) || ~successfulTable || (exist('reRead','var') && reRead)) % then constuct persistent lookup tables
     successfulTable=false;
     R=load('XZfourier_tables');
     NC=size(R.ax,2); % number of Fourier coefficients

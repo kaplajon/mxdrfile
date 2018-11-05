@@ -40,15 +40,24 @@ $L_x$ is kept fixed, but the arc-length $L$ (and thus the dimensionless
 $g$ as well) can fluctuate slightly during a simulation. The parameter
 $s$ is proportional to an arc-length parameter, so 
 \begin{equation}
-  \sqrt{\left(\frac{dX}{ds}\right)^2+\left(\frac{dZ}{ds}\right)^2}
+%  \sqrt{\left(\frac{dX}{ds}\right)^2+\left(\frac{dZ}{ds}\right)^2}
+%  =L=\frac{L_x}{g}.
+%%  \int_0^1\sqrt{\left(\frac{dX}{ds}\right)^2+\left(\frac{dZ}{ds}\right)^2}ds
+%%  =L=\frac{L_x}{g}
+%\end{equation}
+%% ML: both expressions are true. However, the differential expression
+%% implies the integral, but not the other way around.
+%(However, our implementation only respects this to a few decimal
+%places). The curvature along the buckled profile curve is given by
+%
+  \int_0^1\sqrt{\left(\frac{dX}{ds}\right)^2+\left(\frac{dZ}{ds}\right)^2}ds
   =L=\frac{L_x}{g}.
-%  \int_0^1\sqrt{\left(\frac{dX}{ds}\right)^2+\left(\frac{dZ}{ds}\right)^2}ds
-%  =L=\frac{L_x}{g}
 \end{equation}
-% ML: both expressions are true. However, the differential expression
-% implies the integral, but not the other way around.
-(However, our implementation only respects this to a few decimal
-places). The curvature along the buckled profile curve is given by
+Numerically, this identity holds to at least 5 decimal places when
+using \texttt{buckleshape\_Fcoeff\_lin} with a Fourier truncated after
+7 terms.
+
+The curvature along the buckled profile curve is given by
 \begin{multline}
   C(s)=-\frac{\frac{dX}{ds}\frac{d^2Z}{ds^2}-\frac{dZ}{ds}\frac{d^2z}{ds^2}}{
     \left(
