@@ -31,7 +31,7 @@
 %% ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 %% POSSIBILITY OF SUCH DAMAGE.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-dir0=pwd;
+dir0=fileparts(mfilename('fullpath'));
 addpath(genpath(fullfile(dir0,'mxdrfunctions')))
 if(not(libisloaded('libxdrfile')))
     if exist('xdrfile.h')==2
